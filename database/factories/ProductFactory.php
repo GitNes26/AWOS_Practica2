@@ -2,11 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
+use App\Models\Product;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Product::class, function (Faker $faker) {
     return [
-        //
+        'product' => $faker->unique()->word,
+        'quantity' => $faker->numberBetween($min = 0, $max = 100)
     ];
 });
