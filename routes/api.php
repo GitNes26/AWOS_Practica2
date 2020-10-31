@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::GET('/products/{id?}', 'API\ProductController@index')->where(['id','[0-9]+']);
 Route::POST('/products', 'API\ProductController@create');
 Route::PUT('/products/{id}', 'API\ProductController@update')->where(['id','[0-9]+']);
-Route::DELETE('/products/{id}', 'API\ProductController@delete')->where(['id','[0-9]+']);
+Route::DELETE('/products/{id}', 'API\ProductController@delete')->where(['id','[0-9]+'])->middleware('check.quantity');
 
 //CRUD USUARIOS
 Route::GET('/users/{id?}', 'API\UserController@index')->where(['id','[0-9]+']);
