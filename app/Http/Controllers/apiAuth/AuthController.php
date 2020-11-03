@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illumainate\Support\MessageBag;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -17,6 +18,15 @@ class AuthController extends Controller
         if($request->user()->tokenCan('user:info'))
             return response()->json(["Mi perfil"=> $request->user()],200);
         abort(401, "Scope invalido");
+    }
+
+    public function grantPermissions(Request $request){
+        $rolUser = DB::table('roles_users')->join('users','roles_users.user_id','users.id')->join('roles','roles_users.role_id','roles.id')->select('users.name','roles.role')->where('users.name',$request->user)->first();
+        foreach ($variable as $user) {
+            if($user->role == 4)
+                return 
+
+        }
     }
 
     public function registry(Request $request){
@@ -57,4 +67,6 @@ class AuthController extends Controller
     public function logOut(Request $request){
         return response()->json(["Tokens eliminados" => $request->user()->tokens()->delete()],200);
     }
+
+    
 }

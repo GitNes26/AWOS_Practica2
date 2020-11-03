@@ -12,10 +12,10 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('roles')->insert([
-        //     'role' => 'Lector',
-        //     'description' => 'Este usuario solo puede ver los registros.'
-        // ]);
+        DB::table('roles')->insert([
+            'role' => 'Lector',
+            'description' => 'Este usuario solo puede ver los registros.'
+        ]);
 
         DB::table('roles')->insert([
             'role' => 'Capturador',
