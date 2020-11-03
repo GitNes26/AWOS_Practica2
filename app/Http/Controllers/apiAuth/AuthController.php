@@ -50,13 +50,11 @@ class AuthController extends Controller
             ]);
         }
 
-        $token = $user->createToken($request->name, ['user:info'])->plainTextToken;
+        $token = $user->createToken($request->name, ['user:info', 'admin:admin'])->plainTextToken;
             return response()->json(['token' => $token],201);
     }
 
     public function logOut(Request $request){
         return response()->json(["Tokens eliminados" => $request->user()->tokens()->delete()],200);
     }
-
-    
 }

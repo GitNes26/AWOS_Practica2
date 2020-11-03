@@ -42,4 +42,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Comment');
         // Esta tabla 'users(User)' TIENE UNA RELACION con la tabla 'comments(Comment)
     }
+
+    public function roles(){
+        return $this->belongsToMany('App\Models\Role','roles_users','user_id','role_id');
+    }
 }
