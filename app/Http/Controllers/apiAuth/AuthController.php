@@ -23,8 +23,9 @@ class AuthController extends Controller
     public function grantPermissions(Request $request){
         $rolUser = DB::table('roles_users')->join('users','roles_users.user_id','users.id')->join('roles','roles_users.role_id','roles.id')->select('users.name','roles.role')->where('users.name',$request->user)->first();
         foreach ($variable as $user) {
-            if($user->role == 4)
-                return 
+            if($user->role == 4){
+                // return redirect('addPermissions');
+            }
 
         }
     }
