@@ -22,19 +22,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::GET('/products/{id?}', 'API\ProductController@index')->where(['id','[0-9]+']);
 Route::POST('/products', 'API\ProductController@create');
 Route::PUT('/products/{id}', 'API\ProductController@update')->where(['id','[0-9]+']);
-Route::DELETE('/products/{id}', 'API\ProductController@delete')->where(['id','[0-9]+'])->middleware('check.quantity');
+Route::DELETE('/products/{user}/{id}', 'API\ProductController@delete')->where(['id','[0-9]+'])->middleware(['check.user','check.quantity']);
 
 //CRUD USUARIOS
-Route::GET('/users/{id?}', 'API\UserController@index')->where(['id','[0-9]+']);
-Route::POST('/users', 'API\UserController@create');
+// Route::GET('/users/{id?}', 'API\UserController@index')->where(['id','[0-9]+']);
+// Route::POST('/users', 'API\UserController@create');
 Route::PUT('/users/{id}', 'API\UserController@update')->where(['id','[0-9]+']);
-Route::DELETE('/users/{id}', 'API\UserController@delete')->where(['id','[0-9]+']);
+// Route::DELETE('/users/{user}/{id}', 'API\UserController@delete')->where(['id','[0-9]+']);
+
+// TOKENS
+Route::POST('/registry', 'apiAuth\AuthController@registry');
+Route::POST('/login', 'apiAuth\AuthController@logIn');
+Route::middleware('auth:sanctum')->get('/users', 'apiAuth\AuthController@index');
+Route::middleware('auth:sanctum')->delete('/logout', 'apiAuth\AuthController@logOut');
 
 //CRUD COMENTARIOS
 Route::GET('/comments/{id?}', 'API\CommentController@index')->where(['id','[0-9]+']);
 Route::POST('/comments', 'API\CommentController@create');
 Route::PUT('/comments/{id}', 'API\CommentController@update')->where(['id','[0-9]+']);
-Route::DELETE('/comments/{id}', 'API\CommentController@delete')->where(['id','[0-9]+']);
+Route::DELETE('/comments/{user}/{id}', 'API\CommentController@delete')->where(['id','[0-9]+']);
 
 //CONSULTAS AVANZADAS
 //buscar comentarios de un mismo usuario
