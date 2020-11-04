@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::GET('/products/{id?}', 'API\ProductController@index')->where(['id','[0-9]+']);
 Route::POST('/products', 'API\ProductController@create');
 Route::PUT('/products/{id}', 'API\ProductController@update')->where(['id','[0-9]+']);
-Route::DELETE('/products/{user}/{id}', 'API\ProductController@delete')->where(['id','[0-9]+'])->middleware(['check.user','check.quantity']);
+Route::delete('/products/{user}/{id}', 'API\ProductController@delete')->where(['id','[0-9]+'])->middleware(['check.user','check.quantity']);
 
 //CRUD USUARIOS
 // Route::GET('/users/{id?}', 'API\UserController@index')->where(['id','[0-9]+']);
@@ -35,6 +35,14 @@ Route::POST('/registry', 'apiAuth\AuthController@registry');
 Route::POST('/login', 'apiAuth\AuthController@logIn');
 Route::middleware('auth:sanctum')->get('/users', 'apiAuth\AuthController@index');
 Route::middleware('auth:sanctum')->delete('/logout', 'apiAuth\AuthController@logOut');
+// PERMISOS
+Route::middleware('auth:sanctum')->get('/show', 'apiAuth\AuthController@showPermissions');
+Route::middleware('auth:sanctum')->put('/users/{id}', 'apiAuth\AuthController@grantPermissions')->name('grants');
+Route::middleware('auth:sanctum')->delete('/users/{id}', 'apiAuth\AuthController@deleteUser');
+
+// 11|Lso6euHv0iaHBIIeFoxUUttxobwqYJkzWHcZEEuF   //juanEditor Token
+
+// 9|9HkmvX0fHn55Vtb2odN5ftQpz8N3gFOz7PE9wV7C    //Admin Token
 
 //CRUD COMENTARIOS
 Route::GET('/comments/{id?}', 'API\CommentController@index')->where(['id','[0-9]+']);
